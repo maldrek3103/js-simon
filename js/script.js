@@ -4,8 +4,7 @@
 // far partire il timer non appena l'utente prende 'ok'
 // EXTRA far vedere il countdown
 // al termine dei 30 secondi l'utente dovrà inserire i numeri tramite un 'prompt'
-// l'utente avrà 15 secondi per inserire i numeri
-// quando il tempo sarà scaduto far vedere il risultato all'utente tramite 'alert'
+// far vedere il risultato all'utente tramite 'alert'
 // EXTRA il risultatò dovrà essere stampato direttamente in pagina
 
 
@@ -13,6 +12,7 @@
 //FIXED VARIABLES
 const totalNumbers = 100;
 const totalNumbersToGenerate = 5;
+var timeLeft = 30;
 
 
 
@@ -37,6 +37,20 @@ while (rngNumbers.length < totalNumbersToGenerate) {
 
 myAlert(rngNumbers);
 
+// COUNTDOWN WITH DISPLAY ON PAGE
+var countdownTimer = setInterval(function () {
+    //Brings the HTML element
+    const getCountdown = document.getElementById("countdowntimer");
+    //Stops the countdown one ended
+    if (timeLeft <= 0) {
+        clearInterval(countdownTimer);
+        getCountdown.innerHTML = "STOP!";
+
+    } else {
+        getCountdown.innerHTML = timeLeft + " seconds remaining";
+    }
+    return timeLeft -= 1;
+}, 1000);
 
 
 
@@ -72,5 +86,5 @@ function isInArray(element, arr) {
  * @param {*} value 
  */
 function myAlert(value) {
-    alert('Questi sono i tuoi numeri: ' + value);
+    return alert('Questi sono i tuoi numeri: ' + value);
 }
