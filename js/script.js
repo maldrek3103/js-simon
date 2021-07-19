@@ -12,14 +12,18 @@
 //FIXED VARIABLES
 const totalNumbers = 100;
 const totalNumbersToGenerate = 5;
-var timeLeft = 30;
-
+const maxAttempts = 5;
+let timeLeft = 3;
 
 
 // CHANGING VARIABLES
 const rngNumbers = [];
+const userNumbers = [];
 
 
+
+//CHECKING VARIABLES
+let isRight = false;
 
 
 
@@ -36,7 +40,7 @@ while (rngNumbers.length < totalNumbersToGenerate) {
 }
 
 myAlert(rngNumbers);
-
+console.log(rngNumbers);
 // COUNTDOWN WITH DISPLAY ON PAGE
 var countdownTimer = setInterval(function () {
     //Brings the HTML element
@@ -44,13 +48,22 @@ var countdownTimer = setInterval(function () {
     //Stops the countdown one ended
     if (timeLeft <= 0) {
         clearInterval(countdownTimer);
-        getCountdown.innerHTML = "STOP!";
-
+        alert("STOP!");
+        while (userNumbers.length != 5) {
+            if (isNumber) {
+                userNumbers.push(getUserNumber(1, totalNumbers));
+            }
+        }
     } else {
         getCountdown.innerHTML = timeLeft + " seconds remaining";
     }
     return timeLeft -= 1;
 }, 1000);
+
+
+
+
+
 
 
 
@@ -87,4 +100,32 @@ function isInArray(element, arr) {
  */
 function myAlert(value) {
     return alert('Questi sono i tuoi numeri: ' + value);
+}
+
+/**
+ * Ask user a number until it is not a valid element (between min and max)
+ * @param {*} min 
+ * @param {*} max 
+ * @returns 
+ */
+function getUserNumber(min, max) {
+    //Ask user number
+    let number = prompt('Inserisci un numero da ' + min + ' a ' + max);
+    while (!isNumber(number) || number < 1 || number > max) {
+        number = prompt('Inserisci un numero da ' + min + ' a ' + max);
+    }
+    return parseInt(number);
+}
+
+/**
+ * Checks if a value is a number
+ * @param {*} num 
+ * @returns 
+ */
+function isNumber(num) {
+    if (!num || num.trim() === '' || isNaN(num)) {
+        alert('Devi inserire un valore valido!');
+        return false;
+    }
+    return true;
 }
